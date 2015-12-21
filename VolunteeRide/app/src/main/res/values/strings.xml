@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Voluntee Ride</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_register">Register</string>
+    <string name="center_center1">Center 1</string>
+    <string name="center_center2">Center 2</string>
+    <string name="center_center3">Center 3</string>
+    <string name="center_center4">Center 4</string>
+
+    <string-array name="centers">
+        <item>@string/center_center1</item>
+        <item>@string/center_center2</item>
+        <item>@string/center_center3</item>
+        <item>@string/center_center4</item>
+    </string-array>
+</resources>
