@@ -53,12 +53,11 @@ public class FragmentRideSeeker extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_ride_seeker, container, false);
 
-                mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
+        mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
 
-        //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ My Name is : @@@@@@@@@@@@@@@@@@@@@@@@@@@@" + myName);
         RestQueryResult response = mQueryEngine.runSimpleQuery(VolunteeRideConstantsUtil.GET_CENTERS);
         List<String> spinnerArray =  new ArrayList<String>();
 
@@ -78,8 +77,6 @@ public class FragmentRideSeeker extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
 
         }
 
