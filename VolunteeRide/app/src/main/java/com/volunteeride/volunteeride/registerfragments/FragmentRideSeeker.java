@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.volunteeride.dto.Center;
 import com.volunteeride.rest.RestQueryEngine;
 import com.volunteeride.rest.RestQueryResult;
+import com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil;
 import com.volunteeride.rest.volunteeride.VolunteeRideRestQueryProvider;
 import com.volunteeride.volunteeride.R;
 
@@ -56,7 +57,9 @@ public class FragmentRideSeeker extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_ride_seeker, container, false);
 
                 mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
-        RestQueryResult response = mQueryEngine.runSimpleQuery("centers");
+
+        //System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ My Name is : @@@@@@@@@@@@@@@@@@@@@@@@@@@@" + myName);
+        RestQueryResult response = mQueryEngine.runSimpleQuery(VolunteeRideConstantsUtil.GET_CENTERS);
         List<String> spinnerArray =  new ArrayList<String>();
 
         if(response.getstatusCode() == 200){

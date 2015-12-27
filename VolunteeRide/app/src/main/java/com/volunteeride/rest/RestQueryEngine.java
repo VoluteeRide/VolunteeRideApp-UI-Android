@@ -26,7 +26,19 @@ public class RestQueryEngine {
     }
 
     public RestQueryResult runSimpleQuery(String pQueryName) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName), null, null, null, null, null, null);
+        return this.runSimpleQuery(findQuery(pQueryName));
+    }
+
+    public RestQueryResult runSimpleQuery(String pQueryName, Map<String,String> pQueryParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName));
+    }
+
+    public RestQueryResult runSimpleQuery(String pQueryName, Object pRequestParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName));
+    }
+
+    public RestQueryResult runSimpleQuery(String pQueryName, Map<String,String> pQueryParam, Object pRequestParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName));
     }
 
     private RestQuery findQuery(String pQueryName) throws RestQueryEngineException{
@@ -42,9 +54,7 @@ public class RestQueryEngine {
         return mQueryProvider.findQuery(pQueryName);
     }
 
-    private RestQueryResult runSimpleQuery(RestQuery pQuery, String pUrlPostfix, Map<String, String> pHeaderFields,
-                                           Map<String,String> pGetParams, Map<String,String> pPostParams, Map<String,String> pPutParams,
-                                           String pPostBody) throws RestQueryEngineException{
+    private RestQueryResult runSimpleQuery(RestQuery pQuery) throws RestQueryEngineException{
 
         if(pQuery == null){
             throw new RestQueryEngineException("Query cannot be null");
@@ -53,7 +63,7 @@ public class RestQueryEngine {
         String myUrl = pQuery.getURL();
 
         if(myUrl == null || myUrl.isEmpty()){
-            throw new RestQueryEngineException("No Url found in query : " + pQuery.getName());
+            throw new RestQueryEngineException("No Url found in query  ");
         }
 
         MyTask task = new MyTask();

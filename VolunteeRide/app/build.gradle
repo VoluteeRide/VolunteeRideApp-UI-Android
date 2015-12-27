@@ -37,6 +37,7 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
 
+
     //dependency for de / serialization of joda date time to json
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.4.6'
 

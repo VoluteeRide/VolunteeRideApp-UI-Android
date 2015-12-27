@@ -2,6 +2,7 @@ package com.volunteeride.rest.volunteeride;
 
 import com.volunteeride.rest.IRestQueryProvider;
 import com.volunteeride.rest.RestQuery;
+import com.volunteeride.volunteeride.utility.PropertyReaderUtility;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,23 +15,21 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
     private static final String GET_CENTERS = "centers";
 
 
+    private static final Map<String,RestQuery> queriesByNameMap = new HashMap<String,RestQuery>();
+    static{
 
-    private static final String BASE_URL = "http://10.0.2.2:8080/volunteeride";
+        PropertyReaderUtility myUtility = PropertyReaderUtility.getInstance();
+        String baseURL = myUtility.getValueFromProperties(VolunteeRideConstantsUtil.BASE_URL);
+        queriesByNameMap.put(VolunteeRideConstantsUtil.GET_CENTERS,new RestQuery(RestQuery.Method.GET,baseURL + VolunteeRideConstantsUtil.CENTERS_RESOURCE));
 
-    private final Map<String, RestQuery> queriesByNameMap = new HashMap<String, RestQuery>();
-
-    public VolunteeRideRestQueryProvider(){
-
-        initQueriesByNameMap();
     }
 
-    private void initQueriesByNameMap(){
-
-        queriesByNameMap.put(GET_CENTERS, new RestQuery(GET_CENTERS,RestQuery.Method.GET,BASE_URL,"/centers"));
+    public VolunteeRideRestQueryProvider(){
     }
 
     @Override
     public RestQuery findQuery(String pQueryName) {
+
         return queriesByNameMap.get(pQueryName);
     }
 
