@@ -4,6 +4,8 @@ import com.volunteeride.rest.IRestQueryProvider;
 import com.volunteeride.rest.RestQuery;
 import com.volunteeride.volunteeride.utility.PropertyReaderUtility;
 
+import org.springframework.http.HttpHeaders;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,15 +14,14 @@ import java.util.Map;
  */
 public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
 
-    private static final String GET_CENTERS = "centers";
-
-
     private static final Map<String,RestQuery> queriesByNameMap = new HashMap<String,RestQuery>();
     static{
 
         PropertyReaderUtility myUtility = PropertyReaderUtility.getInstance();
         String baseURL = myUtility.getValueFromProperties(VolunteeRideConstantsUtil.BASE_URL);
         queriesByNameMap.put(VolunteeRideConstantsUtil.GET_CENTERS,new RestQuery(RestQuery.Method.GET,baseURL + VolunteeRideConstantsUtil.CENTERS_RESOURCE));
+        queriesByNameMap.put(VolunteeRideConstantsUtil.LOGIN,new RestQuery(RestQuery.Method.POST,baseURL + VolunteeRideConstantsUtil.LOGIN_RESOURCE));
+        queriesByNameMap.put(VolunteeRideConstantsUtil.REGISTER_USER,new RestQuery(RestQuery.Method.POST,baseURL + VolunteeRideConstantsUtil.REGISTER_USER_RESOURCE));
 
     }
 
@@ -28,9 +29,16 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
     }
 
     @Override
-    public RestQuery findQuery(String pQueryName) {
+    public RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestParam) {
 
-        return queriesByNameMap.get(pQueryName);
+        RestQuery myRestQuery = queriesByNameMap.get(pQueryName);
+        if(pHeaders != null){
+            myRestQuery.setHeaders(pHeaders);
+        }else{
+            myRestQuery.setHeaders(new HttpHeaders());
+        }
+        myRestQuery.setParam(pRequestParam);
+        return myRestQuery;
     }
 
     @Override

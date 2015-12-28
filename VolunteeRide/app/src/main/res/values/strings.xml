@@ -13,4 +13,5 @@
         <item>@string/center_center3</item>
         <item>@string/center_center4</item>
     </string-array>
+    <string name="title_activity_main">Main Activity</string>
 </resources>

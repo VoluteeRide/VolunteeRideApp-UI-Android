@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/editText_password"
         android:layout_alignLeft="@+id/text_password"
         android:layout_alignStart="@+id/text_password"
         android:layout_marginTop="42dp">
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/editText_username"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/text_username"
         android:layout_toEndOf="@+id/text_username" />
@@ -58,9 +58,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password :"
         android:id="@+id/text_password"
-        android:layout_below="@+id/editText"
-        android:layout_toLeftOf="@+id/editText"
-        android:layout_toStartOf="@+id/editText"
+        android:layout_below="@+id/editText_username"
+        android:layout_toLeftOf="@+id/editText_username"
+        android:layout_toStartOf="@+id/editText_username"
         android:layout_marginTop="42dp" />
 
     <EditText
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/editText_password"
         android:layout_alignTop="@+id/text_password"
         android:layout_toRightOf="@+id/text_password"
         android:layout_toEndOf="@+id/text_password" />

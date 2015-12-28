@@ -2,8 +2,6 @@ package com.volunteeride.volunteeride;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,56 +9,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+import com.volunteeride.rest.RestQueryEngine;
+import com.volunteeride.rest.RestQueryEngineException;
+import com.volunteeride.rest.RestQueryResult;
+import com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil;
+import com.volunteeride.rest.volunteeride.VolunteeRideRestQueryProvider;
 
-    Button button;
+import org.springframework.http.HttpAuthentication;
+import org.springframework.http.HttpBasicAuthentication;
+import org.springframework.http.HttpHeaders;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+
+    Button buttonRegister, buttonLogin;
+    EditText textUserName, textPassword;
+    private RestQueryEngine mQueryEngine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        addRegisterListener();
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-    }
+        textUserName = (EditText)findViewById(R.id.editText_username);
+        textPassword = (EditText)findViewById(R.id.editText_password);
 
-    public void addRegisterListener() {
+        buttonRegister = (Button) findViewById(R.id.button_register);
+        buttonRegister.setOnClickListener(this);
 
-        final Context context = this;
-
-        button = (Button) findViewById(R.id.button_register);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-                Intent intent = new Intent(context, RegisterActivity.class);
-                startActivity(intent);
-
-            }
-
-        });
+        buttonLogin = (Button) findViewById(R.id.button_login);
+        buttonLogin.setOnClickListener(this);
 
     }
 
-    protected boolean isOnline(){
-        ///ConnectivityManager cm = getSystemService(Context.CONNECTIVITY_SERVICE);
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
 
 
     @Override
@@ -83,5 +70,34 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.button_register:
+                final Context context = this;
+                Intent intent = new Intent(context, RegisterActivity.class);
+                startActivity(intent);
+
+                break;
+            case R.id.button_login:
+                HttpHeaders requestHeaders = new HttpHeaders();
+                HttpAuthentication authHeader = new HttpBasicAuthentication(textUserName.toString().trim(), textPassword.toString().trim());
+                requestHeaders.setAuthorization(authHeader);
+                try {
+                    mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
+                    RestQueryResult response = mQueryEngine.runSimpleQuery(VolunteeRideConstantsUtil.LOGIN, requestHeaders);
+                    if (response.getstatusCode() == 200) {
+                        startActivity(new Intent(this, MainActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_LONG).show();
+                    }
+                }catch(RestQueryEngineException e){
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+                break;
+        }
     }
 }

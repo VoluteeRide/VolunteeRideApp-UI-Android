@@ -2,7 +2,11 @@ package com.volunteeride.rest;
 
 import android.os.AsyncTask;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.HttpURLConnection;
@@ -25,23 +29,23 @@ public class RestQueryEngine {
 
     }
 
-    public RestQueryResult runSimpleQuery(String pQueryName) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName));
+    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
 
-    public RestQueryResult runSimpleQuery(String pQueryName, Map<String,String> pQueryParam) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName));
+    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Map<String,String> pQueryParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
 
-    public RestQueryResult runSimpleQuery(String pQueryName, Object pRequestParam) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName));
+    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,pRequestParam));
     }
 
-    public RestQueryResult runSimpleQuery(String pQueryName, Map<String,String> pQueryParam, Object pRequestParam) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName));
+    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Map<String,String> pQueryParam, Object pRequestParam) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
 
-    private RestQuery findQuery(String pQueryName) throws RestQueryEngineException{
+    private RestQuery findQuery(String pQueryName,HttpHeaders pHeaders,Object pRequestParam) throws RestQueryEngineException{
 
         if(pQueryName == null || pQueryName.isEmpty()){
             throw new RestQueryEngineException("pQueryName cannot be null or empty");
@@ -51,7 +55,7 @@ public class RestQueryEngine {
             throw new RestQueryEngineException("No query provider is supplied");
         }
 
-        return mQueryProvider.findQuery(pQueryName);
+        return mQueryProvider.findQuery(pQueryName,pHeaders,pRequestParam);
     }
 
     private RestQueryResult runSimpleQuery(RestQuery pQuery) throws RestQueryEngineException{
@@ -72,12 +76,7 @@ public class RestQueryEngine {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        if(myResponse == null) {
-            System.out.println("Is null &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-        }else{
-            System.out.println(" Not nul %%%%%%%%%%%%%%%%");
+            throw new RestQueryEngineException(e.getMessage());
         }
         return myResponse;
     }
@@ -94,30 +93,44 @@ public class RestQueryEngine {
         }
 
         @Override
-        protected RestQueryResult doInBackground(RestQuery... params) {
+        protected RestQueryResult doInBackground(RestQuery... params) throws RestQueryEngineException{
 
 
             RestQuery pQuery = params[0];
             ResponseEntity<String> response = null;
+            HttpEntity<?> requestEntity;
+            if(pQuery.getParam() == null){
+                requestEntity = new HttpEntity<Object>(pQuery.getHeaders());
+            }else{
+                requestEntity = new HttpEntity<Object>(pQuery.getParam(), pQuery.getHeaders());
+            }
+
+            RestTemplate restTemplate = new RestTemplate(true);
+            restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
 
             if(pQuery.getMethod() == RestQuery.Method.GET){
 
-                System.out.println("****************************************************************Rest URL *********" + pQuery.getURL());
-                RestTemplate restTemplate = new RestTemplate(true);
-                //restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-
-
                 try {
-                    response = restTemplate.getForEntity(pQuery.getURL(),String.class);
+                    response = restTemplate.exchange(pQuery.getURL(), HttpMethod.GET,requestEntity,String.class);
                     System.out.println("#########################################################################Response: " + response);
                 } catch (Exception e) {
                     //TODO Handle UnAuthorized errors
                     e.printStackTrace();
                 }
 
+            }else if(pQuery.getMethod() == RestQuery.Method.POST){
+
+                try {
+                    response = restTemplate.exchange(pQuery.getURL(), HttpMethod.POST,requestEntity,String.class);
+                    System.out.println("#########################################################################Response: " + response);
+                } catch (Exception e) {
+                    throw new RestQueryEngineException(e.getMessage());
+
+                }
+
             }
+
             String rawResponse = response.getBody();
             System.out.println(" Raw Response Body *************)))))))))))))) " + rawResponse);
 

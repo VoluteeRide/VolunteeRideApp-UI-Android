@@ -1,5 +1,7 @@
 package com.volunteeride.rest;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * Created by mthosani on 12/12/15.
  */
@@ -15,11 +17,20 @@ public class RestQuery {
 
     private Object mParam;
 
+    private HttpHeaders mHeaders;
+
     public RestQuery(Method pMethod, String pURL){
         this.mMethod = pMethod;
         this.mURL = pURL;
     }
 
+    public HttpHeaders getHeaders() {
+        return mHeaders;
+    }
+
+    public void setHeaders(HttpHeaders mHeaders) {
+        this.mHeaders = mHeaders;
+    }
 
     public Object getParam() {
         return mParam;

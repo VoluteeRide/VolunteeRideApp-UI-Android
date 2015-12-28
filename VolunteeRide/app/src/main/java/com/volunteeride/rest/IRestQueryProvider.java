@@ -1,5 +1,7 @@
 package com.volunteeride.rest;
 
+import org.springframework.http.HttpHeaders;
+
 import java.util.Map;
 
 /**
@@ -13,7 +15,7 @@ public interface IRestQueryProvider {
      * @param pQueryName The unique name of the query
      * @return The query object matching the given name
      */
-    RestQuery findQuery(String pQueryName);
+    RestQuery findQuery(String pQueryName, HttpHeaders pHeaders,Object pRequestParam);
 
     /**
      * Executes common tasks with the HTTPUrlConnection such as adding specific HTTP headers.
