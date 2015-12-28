@@ -1,0 +1,12 @@
+
+*.iml
+
+
+*.class
+
+VolunteeRide/*/.gradle/*
+
+VolunteeRide/*/build/*
+*.bin
+*.lock
+VolunteeRide/.idea/*
