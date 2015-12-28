@@ -21,6 +21,7 @@ import com.volunteeride.rest.volunteeride.VolunteeRideRestQueryProvider;
 import org.springframework.http.HttpAuthentication;
 import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -83,8 +84,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.button_login:
                 HttpHeaders requestHeaders = new HttpHeaders();
-                HttpAuthentication authHeader = new HttpBasicAuthentication(textUserName.toString().trim(), textPassword.toString().trim());
+                HttpAuthentication authHeader =
+                        new HttpBasicAuthentication(textUserName.getText().toString(),
+                                textPassword.getText().toString());
                 requestHeaders.setAuthorization(authHeader);
+                requestHeaders.setContentType(new MediaType("application","json"));
                 try {
                     mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
                     RestQueryResult response = mQueryEngine.runSimpleQuery(VolunteeRideConstantsUtil.LOGIN, requestHeaders);
