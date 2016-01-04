@@ -3,11 +3,22 @@ package com.volunteeride.volunteeride.utility;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.ResourceBundle;
+
+import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.UrlConstants.BASE_URL;
+import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.UrlConstants.SEARCH_RIDES_URL;
 
 /**
  * Created by mthosani on 12/23/15.
  */
 public class PropertyReaderUtility {
+
+    public static ResourceBundle appProperties = ResourceBundle.getBundle("assets/app");
+
+    public static String baseURL = appProperties.getString(BASE_URL);
+
+    public static String searchRidesURL = appProperties.getString(SEARCH_RIDES_URL);
+
 
     private static final PropertyReaderUtility mPropertyUtility = new PropertyReaderUtility();
     Properties mAppProperties = new Properties();

@@ -12,22 +12,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.volunteeride.dto.VolunteerideUser;
 import com.volunteeride.rest.RestQueryEngine;
 import com.volunteeride.rest.RestQueryEngineException;
 import com.volunteeride.rest.RestQueryResult;
 import com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil;
 import com.volunteeride.rest.volunteeride.VolunteeRideRestQueryProvider;
+import com.volunteeride.volunteeride.utility.LocalStoreUtility;
 
 import org.springframework.http.HttpAuthentication;
 import org.springframework.http.HttpBasicAuthentication;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
+import java.io.IOException;
+
+import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.mapper;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button buttonRegister, buttonLogin;
     EditText textUserName, textPassword;
     private RestQueryEngine mQueryEngine;
+    private LocalStoreUtility localStoreUtility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +100,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
                     RestQueryResult response = mQueryEngine.runSimpleQuery(VolunteeRideConstantsUtil.LOGIN, requestHeaders);
                     if (response.getstatusCode() == 200) {
-                        startActivity(new Intent(this, MainActivity.class));
+
+                        //retrieve session id from response
+                        String SetCookieHeaderValue = response.getHeaders().get("Set-Cookie").get(0);
+                        int index = SetCookieHeaderValue.indexOf("JSESSIONID=");
+                        int endIndex = SetCookieHeaderValue.indexOf(";", index);
+                        String sessionID = SetCookieHeaderValue.substring(
+                                index + "JSESSIONID=".length(), endIndex);
+
+                        localStoreUtility = new LocalStoreUtility(this);
+                        localStoreUtility.storeSessionId(sessionID);
+
+                        VolunteerideUser loggedInUser = null;
+
+                        try {
+                            loggedInUser = mapper.
+                                    readValue(response.getResponse(), VolunteerideUser.class);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        localStoreUtility.storeInfo(loggedInUser);
+
+                        startActivity(new Intent(this, UserRideListActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_LONG).show();
                     }

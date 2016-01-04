@@ -17,6 +17,9 @@ public interface IRestQueryProvider {
      */
     RestQuery findQuery(String pQueryName, HttpHeaders pHeaders,Object pRequestParam);
 
+    RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
+                               Map<String, Object> pUrlParams, Map<String, Object> pQueryParams);
+
     /**
      * Executes common tasks with the HTTPUrlConnection such as adding specific HTTP headers.
      * @param pRequest The HTTP request object

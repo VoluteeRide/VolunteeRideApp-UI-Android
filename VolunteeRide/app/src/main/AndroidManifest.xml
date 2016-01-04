@@ -24,10 +24,15 @@
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".UserRideListActivity" />
+        <activity
+            android:name=".RideDetailsActivity"
+            android:label="@string/title_activity_ride_details"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#454343">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ride Status: "
+        android:id="@+id/textLblStatus"
+        android:textColor="#f1ebeb"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ride Pick Up Time: "
+        android:id="@+id/textLblPckUpTime"
+        android:textColor="#f1ebeb"
+        android:layout_below="@+id/textLblStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ride Pick Up Location: "
+        android:id="@+id/textLblPckUpLoc"
+        android:textColor="#f1ebeb"
+        android:layout_below="@+id/textLblPckUpTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textStatus"
+        android:layout_toRightOf="@+id/textLblPckUpTime"
+        android:layout_toEndOf="@+id/textLblPckUpTime"
+        android:textColor="#f1ebeb"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_alignTop="@+id/textLblStatus"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textPckUpTime"
+        android:textColor="#f1ebeb"
+        android:gravity="right"
+        android:textSize="16sp"
+        android:layout_above="@+id/textLblPckUpLoc"
+        android:layout_toRightOf="@+id/textLblPckUpLoc"
+        android:layout_toEndOf="@+id/textLblPckUpLoc"
+        android:layout_marginRight="10dp"
+        android:layout_alignTop="@+id/textLblPckUpTime" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/textPckUpLoc"
+        android:textColor="#f1ebeb"
+        android:gravity="right"
+        android:layout_alignTop="@+id/textLblPckUpLoc"
+        android:layout_toRightOf="@+id/textLblPckUpLoc"
+        android:layout_toEndOf="@+id/textLblPckUpLoc"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp" />
+</RelativeLayout>

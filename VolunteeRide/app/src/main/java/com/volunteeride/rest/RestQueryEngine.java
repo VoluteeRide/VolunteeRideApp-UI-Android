@@ -29,6 +29,11 @@ public class RestQueryEngine {
 
     }
 
+    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
+                                          Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) throws RestQueryEngineException{
+        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,pRequestBody, pUrlParams, pQueryParams));
+    }
+
     public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders) throws RestQueryEngineException{
         return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
@@ -55,10 +60,24 @@ public class RestQueryEngine {
             throw new RestQueryEngineException("No query provider is supplied");
         }
 
-        return mQueryProvider.findQuery(pQueryName,pHeaders,pRequestParam);
+        return mQueryProvider.findQuery(pQueryName, pHeaders, pRequestParam);
     }
 
-    private RestQueryResult runSimpleQuery(RestQuery pQuery) throws RestQueryEngineException{
+    private RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
+                                Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) throws RestQueryEngineException{
+
+        if(pQueryName == null || pQueryName.isEmpty()){
+            throw new RestQueryEngineException("pQueryName cannot be null or empty");
+        }
+
+        if(mQueryProvider == null){
+            throw new RestQueryEngineException("No query provider is supplied");
+        }
+
+        return mQueryProvider.findQuery(pQueryName,pHeaders,pRequestBody, pUrlParams, pQueryParams);
+    }
+
+    public RestQueryResult runSimpleQuery(RestQuery pQuery) throws RestQueryEngineException{
 
         if(pQuery == null){
             throw new RestQueryEngineException("Query cannot be null");
@@ -136,7 +155,7 @@ public class RestQueryEngine {
 
             String modifiedResponse =  rawResponse.substring(1, rawResponse.length() - 1);
             System.out.println(" Modified Response Body *************)))))))))))))) " + modifiedResponse);
-            myResponse = new RestQueryResult(response.getStatusCode().value(),rawResponse);
+            myResponse = new RestQueryResult(response.getStatusCode().value(),rawResponse, response.getHeaders());
 
             return myResponse;
         }

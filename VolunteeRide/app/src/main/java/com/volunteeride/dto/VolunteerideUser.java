@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VolunteerideUser {
+public class VolunteerideUser extends BaseDTOObject{
 
     private String username;
 

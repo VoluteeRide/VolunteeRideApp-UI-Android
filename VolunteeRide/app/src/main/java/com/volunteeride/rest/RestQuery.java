@@ -19,9 +19,17 @@ public class RestQuery {
 
     private HttpHeaders mHeaders;
 
+    private Object mBody;
+
     public RestQuery(Method pMethod, String pURL){
         this.mMethod = pMethod;
         this.mURL = pURL;
+    }
+
+    public RestQuery(Method mMethod, String mURL, HttpHeaders mHeaders) {
+        this.mMethod = mMethod;
+        this.mURL = mURL;
+        this.mHeaders = mHeaders;
     }
 
     public HttpHeaders getHeaders() {
@@ -56,4 +64,11 @@ public class RestQuery {
         this.mMethod = mMethod;
     }
 
+    public Object getmBody() {
+        return mBody;
+    }
+
+    public void setmBody(Object mBody) {
+        this.mBody = mBody;
+    }
 }

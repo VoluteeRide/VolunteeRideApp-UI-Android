@@ -3,7 +3,7 @@ package com.volunteeride.volunteeride.utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.volunteeride.dto.User;
+import com.volunteeride.dto.VolunteerideUser;
 
 /**
  * Created by mthosani on 12/26/15.
@@ -17,22 +17,33 @@ public class LocalStoreUtility {
         userInfo = context.getSharedPreferences(SP_NAME,0);
     }
 
-    public void storeInfo(User user){
+    public void storeInfo(VolunteerideUser user){
         SharedPreferences.Editor spEditor = userInfo.edit();
-        spEditor.putString("name",user.getName());
-        spEditor.putString("email",user.getEmail());
+        spEditor.putString("centerId",user.getCenterId());
+        spEditor.putString("userId",user.getId());
         spEditor.commit();
     }
 
-    public User getLoggedInUserInfo(){
-        String name = userInfo.getString("name","");
-        String email = userInfo.getString("email","");
+    public void storeSessionId(String sessionId){
+        SharedPreferences.Editor spEditor = userInfo.edit();
+        spEditor.putString("JSESSIONID",sessionId);
+        spEditor.commit();
+    }
 
-        User myUser = new User();
-        myUser.setEmail(email);
-        myUser.setName(name);
+    public String getSessionId() {
+        return userInfo.getString("JSESSIONID", "");
+    }
 
-        return myUser;
+
+    public VolunteerideUser getLoggedInUserInfo(){
+        String centerId = userInfo.getString("centerId","");
+        String userId = userInfo.getString("userId","");
+
+        VolunteerideUser loggedInUser = new VolunteerideUser();
+        loggedInUser.setCenterId(centerId);
+        loggedInUser.setId(userId);
+
+        return loggedInUser;
     }
 
     public void setUserLoggedIn(boolean isLoggedIn){
