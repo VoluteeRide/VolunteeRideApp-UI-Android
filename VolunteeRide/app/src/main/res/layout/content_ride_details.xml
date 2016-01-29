@@ -93,4 +93,38 @@
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Cancel Ride"
+        android:id="@+id/bttnCnclRide"
+        android:layout_below="@+id/textLblPckUpLoc"
+        android:layout_alignLeft="@+id/textLblPckUpLoc"
+        android:layout_alignStart="@+id/textLblPckUpLoc"
+        android:layout_marginTop="45dp"
+        android:visibility="invisible" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept Ride"
+        android:id="@+id/bttnAcptRide"
+        android:layout_alignTop="@+id/bttnCnclRide"
+        android:layout_toRightOf="@+id/textLblPckUpTime"
+        android:layout_toEndOf="@+id/textLblPckUpTime"
+        android:visibility="invisible" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acknowledge Ride"
+        android:id="@+id/bttnAcknwldgeRide"
+        android:layout_alignBottom="@+id/bttnAcptRide"
+        android:layout_alignLeft="@+id/bttnAcptRide"
+        android:layout_alignStart="@+id/bttnAcptRide"
+        android:visibility="invisible" />
+
 </RelativeLayout>
