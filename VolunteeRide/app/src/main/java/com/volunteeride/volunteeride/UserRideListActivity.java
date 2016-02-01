@@ -9,7 +9,6 @@ import android.widget.ListView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.volunteeride.adapter.RideAdapter;
-import com.volunteeride.dto.PagedResponse;
 import com.volunteeride.dto.Ride;
 import com.volunteeride.dto.VolunteerideUser;
 import com.volunteeride.rest.RestQueryEngine;
@@ -22,7 +21,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,16 +76,12 @@ public class UserRideListActivity extends ListActivity {
 
             if (response.getstatusCode() == 200) {
 
-                PagedResponse<Ride> pagedResponse = null;
-
                 try {
-                     pagedResponse = mapper.
-                            readValue(response.getResponse(), new TypeReference<PagedResponse<Ride>>() {});
+                    rides = mapper.
+                            readValue(response.getResponse(), new TypeReference<List<Ride>>() {});
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                rides = Arrays.asList((Ride[])pagedResponse.getContent());
 
                 setListAdapter(new RideAdapter(UserRideListActivity.this, rides));
             }
