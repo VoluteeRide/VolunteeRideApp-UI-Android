@@ -7,9 +7,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.HttpURLConnection;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -19,7 +19,6 @@ import java.util.concurrent.ExecutionException;
  */
 public class RestQueryEngine {
 
-    HttpURLConnection mURLConnection;
     private IRestQueryProvider mQueryProvider;
     RestQueryResult myResponse = null;
 
@@ -30,7 +29,7 @@ public class RestQueryEngine {
     }
 
     public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
-                                          Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) throws RestQueryEngineException{
+                                          Map<String, Object> pUrlParams, MultiValueMap<String, Object> pQueryParams) throws RestQueryEngineException{
         return this.runSimpleQuery(findQuery(pQueryName,pHeaders,pRequestBody, pUrlParams, pQueryParams));
     }
 
@@ -38,16 +37,8 @@ public class RestQueryEngine {
         return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
 
-    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Map<String,String> pQueryParam) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
-    }
-
     public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestParam) throws RestQueryEngineException{
         return this.runSimpleQuery(findQuery(pQueryName,pHeaders,pRequestParam));
-    }
-
-    public RestQueryResult runSimpleQuery(String pQueryName, HttpHeaders pHeaders, Map<String,String> pQueryParam, Object pRequestParam) throws RestQueryEngineException{
-        return this.runSimpleQuery(findQuery(pQueryName,pHeaders,null));
     }
 
     private RestQuery findQuery(String pQueryName,HttpHeaders pHeaders,Object pRequestParam) throws RestQueryEngineException{
@@ -64,7 +55,7 @@ public class RestQueryEngine {
     }
 
     private RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
-                                Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) throws RestQueryEngineException{
+                                Map<String, Object> pUrlParams, MultiValueMap<String, Object> pQueryParams) throws RestQueryEngineException{
 
         if(pQueryName == null || pQueryName.isEmpty()){
             throw new RestQueryEngineException("pQueryName cannot be null or empty");

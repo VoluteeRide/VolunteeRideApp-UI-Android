@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,38 +18,31 @@ import com.volunteeride.volunteeride.utility.LocalStoreUtility;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.volunteeride.dto.RideStatusEnum.REQUESTED;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.QueryParamsConstants.RIDE_STATUS;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.mapper;
+import static com.volunteeride.dto.RideStatusEnum.ACCEPTED;
+import static com.volunteeride.dto.RideStatusEnum.ACKNOWLEDGED;
+import static com.volunteeride.dto.RideStatusEnum.REQUESTED;
 
 public class UserRideListActivity extends ListActivity {
 
     private RestQueryEngine mQueryEngine;
-    private Button bttnRetrieveCenters;
     private List<Ride> rides;
     private LocalStoreUtility localStoreUtility;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_ride_list);
-
-        /*bttnRetrieveCenters = (Button)findViewById(R.id.bttnRtrvRides);
-
-        bttnRetrieveCenters.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setListAdapter(new RideAdapter(UserRideListActivity.this, rides));
-            }
-        });*/
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(new MediaType("application", "json"));
@@ -66,8 +58,11 @@ public class UserRideListActivity extends ListActivity {
             Map urlParams = new HashMap<>();
             urlParams.put("centerId", loggedInUser.getCenterId());
 
-            Map queryParams = new HashMap<>();
-            queryParams.put(RIDE_STATUS, REQUESTED.name());
+            MultiValueMap<String, Object> queryParams = new LinkedMultiValueMap<>();
+
+            queryParams.add(RIDE_STATUS, REQUESTED.name());
+            queryParams.add(RIDE_STATUS, ACCEPTED.name());
+            queryParams.add(RIDE_STATUS, ACKNOWLEDGED.name());
 
             mQueryEngine = new RestQueryEngine(new VolunteeRideRestQueryProvider());
 

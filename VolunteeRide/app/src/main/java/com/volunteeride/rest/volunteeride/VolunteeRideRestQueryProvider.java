@@ -6,10 +6,13 @@ import com.volunteeride.rest.RestQuery;
 import com.volunteeride.volunteeride.utility.PropertyReaderUtility;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.BASE_URL;
@@ -69,7 +72,7 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
 
     @Override
     public RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
-                               Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) {
+                               Map<String, Object> pUrlParams, MultiValueMap<String, Object> pQueryParams) {
 
         RestQuery staticQuery = queriesByNameMap.get(pQueryName);
 
@@ -77,8 +80,12 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
 
         if(pQueryParams !=  null && !pQueryParams.isEmpty()){
 
-            for(Map.Entry<String, Object> entry : pQueryParams.entrySet()){
-                uriComponentsBuilder.queryParam(entry.getKey(), entry.getValue());
+            for(Map.Entry<String, List<Object>> entry : pQueryParams.entrySet()){
+                if(!CollectionUtils.isEmpty(entry.getValue())){
+                    for(Object entryValue : entry.getValue()){
+                        uriComponentsBuilder.queryParam(entry.getKey(), entryValue);
+                    }
+                }
             }
         }
 

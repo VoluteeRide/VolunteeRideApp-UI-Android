@@ -1,6 +1,7 @@
 package com.volunteeride.rest;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public interface IRestQueryProvider {
     RestQuery findQuery(String pQueryName, HttpHeaders pHeaders,Object pRequestParam);
 
     RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
-                               Map<String, Object> pUrlParams, Map<String, Object> pQueryParams);
+                        Map<String, Object> pUrlParams, MultiValueMap<String, Object> pQueryParams);
 
     /**
      * Executes common tasks with the HTTPUrlConnection such as adding specific HTTP headers.
