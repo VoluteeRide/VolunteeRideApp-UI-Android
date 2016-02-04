@@ -1,11 +1,13 @@
 package com.volunteeride.volunteeride;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.volunteeride.dto.Center;
 import com.volunteeride.dto.Location;
@@ -26,12 +28,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.EXECUTE_RIDE_OPERATION_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_CENTER_DETAILS_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_USER_DETAILS_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.dateTimeFormatter;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.mapper;
 
-public class RideDetailsActivity extends AppCompatActivity {
+public class RideDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private LocalStoreUtility localStoreUtility;
     private RestQueryEngine mQueryEngine;
@@ -70,6 +73,7 @@ public class RideDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         ride = (Ride) bundle.getSerializable("clickedRide");
+
 
         if(ride.getVolunteerId() != null){
             volunteerRelativeLayout.setVisibility(View.VISIBLE);
@@ -233,12 +237,15 @@ public class RideDetailsActivity extends AppCompatActivity {
         //Initialize Ride Operation Buttons
         cancelRideBttn = (Button)findViewById(R.id.bttnCnclRide);
         cancelRideBttn.setVisibility(View.INVISIBLE);
+        cancelRideBttn.setOnClickListener(this);
 
         acceptRideBttn = (Button)findViewById(R.id.bttnAcptRide);
         acceptRideBttn.setVisibility(View.INVISIBLE);
+        acceptRideBttn.setOnClickListener(this);
 
         acknowledgeRideBttn = (Button)findViewById(R.id.bttnAcknwldgeRide);
         acknowledgeRideBttn.setVisibility(View.INVISIBLE);
+        acknowledgeRideBttn.setOnClickListener(this);
 
         volunteerRelativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         volunteerRelativeLayout.setVisibility(View.INVISIBLE);
@@ -271,4 +278,64 @@ public class RideDetailsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()){
+            case R.id.bttnCnclRide :
+                    this.executeRideOperation(RideOperationEnum.CANCEL);
+                break;
+
+            case R.id.bttnAcptRide:
+                this.executeRideOperation(RideOperationEnum.ACCEPT);
+                break;
+
+            case R.id.bttnAcknwldgeRide:
+                this.executeRideOperation(RideOperationEnum.ACKNOWLEDGE);
+                break;
+        }
+    }
+
+    private void executeRideOperation(RideOperationEnum rideOperation) {
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(new MediaType("application", "json"));
+        requestHeaders.add("Cookie", "JSESSIONID=" + localStoreUtility.getSessionId());
+        Map urlParams = new HashMap<>();
+        urlParams.put("centerId", ride.getCenterId());
+        urlParams.put("rideId", ride.getId());
+        urlParams.put("operationName", rideOperation.name());
+
+        try{
+
+            RestQueryResult response = mQueryEngine.runSimpleQuery(EXECUTE_RIDE_OPERATION_URL_NAME,
+                    requestHeaders, null, urlParams, null);
+
+            if (response.getstatusCode() == 200) {
+
+                try {
+                    ride = mapper.readValue(response.getResponse(), Ride.class);
+                } catch (IOException e) {
+                    //TODO Ayaz Handle exception
+                    e.printStackTrace();
+                }
+
+            }else{
+                //TODO Ayaz handle other response codes
+            }
+
+        }catch(RestQueryEngineException e){
+            e.printStackTrace();
+            //TODO Ayaz Handle Exception
+            // Toast.makeText(v.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        finish();
+        Intent intent = getIntent();
+        intent.putExtra("clickedRide", ride);
+        startActivity(intent);
+        String rideOperationMessage = "You have successfully " + ride.getStatus() + " this ride";
+        Toast toast = Toast.makeText(this, rideOperationMessage, Toast.LENGTH_LONG);
+        toast.show();
+    }
 }

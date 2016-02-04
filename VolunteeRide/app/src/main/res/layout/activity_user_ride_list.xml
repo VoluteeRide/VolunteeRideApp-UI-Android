@@ -10,26 +10,14 @@
     tools:context="com.volunteeride.volunteeride.UserRideListActivity">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Scheduled Rides"
-        android:id="@+id/bttnRtrvRides"
-        android:background="#3c3a3a"
-        android:textColor="#f3ebeb"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        style="@android:style/DeviceDefault.Light.ButtonBar" />
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@android:id/list"
-        android:layout_below="@+id/bttnRtrvRides"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="41dp"
-        android:background="#faf5f5" />
+        android:background="#959292" />
 
 
 </RelativeLayout>

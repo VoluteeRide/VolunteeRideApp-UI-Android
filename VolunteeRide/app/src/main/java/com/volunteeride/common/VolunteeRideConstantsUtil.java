@@ -32,7 +32,7 @@ public class VolunteeRideConstantsUtil {
         public static final String SEARCH_RIDES_URL = "search_rides_url";
         public static final String RETRIEVE_CENTER_DETAILS_URL = "retrieve_center_details_url";
         public static final String RETRIEVE_USER_DETAILS_URL = "retrieve_user_details_url";
-
+        public static final String EXECUTE_RIDE_OPERATION_URL = "execute_ride_operation_url";
     }
 
     public static class UrlNameConstants {
@@ -40,6 +40,7 @@ public class VolunteeRideConstantsUtil {
         public static final String SEARCH_RIDES_URL_NAME = "searchRides";
         public static final String RETRIEVE_CENTER_DETAILS_URL_NAME = "retrieveCenterDetails";
         public static final String RETRIEVE_USER_DETAILS_URL_NAME = "retrieveUserDetails";
+        public static final String EXECUTE_RIDE_OPERATION_URL_NAME = "executeRideOperation";
 
     }
 

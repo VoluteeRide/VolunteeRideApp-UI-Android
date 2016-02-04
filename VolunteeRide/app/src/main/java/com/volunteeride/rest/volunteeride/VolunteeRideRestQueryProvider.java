@@ -13,9 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.BASE_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.EXECUTE_RIDE_OPERATION_URL;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.RETRIEVE_CENTER_DETAILS_URL;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.RETRIEVE_USER_DETAILS_URL;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.SEARCH_RIDES_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.EXECUTE_RIDE_OPERATION_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_CENTER_DETAILS_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_USER_DETAILS_URL_NAME;
 import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
@@ -44,6 +46,8 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
                 new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_CENTER_DETAILS_URL)));
         queriesByNameMap.put(RETRIEVE_USER_DETAILS_URL_NAME,
                 new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_USER_DETAILS_URL)));
+        queriesByNameMap.put(EXECUTE_RIDE_OPERATION_URL_NAME,
+                new RestQuery(RestQuery.Method.PUT, PropertyReaderUtility.getValue(EXECUTE_RIDE_OPERATION_URL)));
 
     }
 
@@ -67,9 +71,9 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
     public RestQuery findQuery(String pQueryName, HttpHeaders pHeaders, Object pRequestBody,
                                Map<String, Object> pUrlParams, Map<String, Object> pQueryParams) {
 
-        RestQuery myRestQuery = queriesByNameMap.get(pQueryName);
+        RestQuery staticQuery = queriesByNameMap.get(pQueryName);
 
-        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(baseURL).pathSegment(myRestQuery.getURL());
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(baseURL).pathSegment(staticQuery.getURL());
 
         if(pQueryParams !=  null && !pQueryParams.isEmpty()){
 
@@ -86,7 +90,7 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
             uriComponents = uriComponentsBuilder.build();
         }
 
-        myRestQuery.setURL(uriComponents.toUriString());
+        RestQuery myRestQuery = new RestQuery(staticQuery.getMethod(), uriComponents.toUriString());
 
         if(pHeaders != null){
             myRestQuery.setHeaders(pHeaders);

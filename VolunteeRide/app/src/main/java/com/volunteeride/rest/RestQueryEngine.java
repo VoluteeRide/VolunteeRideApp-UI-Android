@@ -147,7 +147,15 @@ public class RestQueryEngine {
                     throw new RestQueryEngineException(e.getMessage());
 
                 }
+            }else if(pQuery.getMethod() == RestQuery.Method.PUT){
 
+                try {
+                    response = restTemplate.exchange(pQuery.getURL(), HttpMethod.PUT,requestEntity,String.class);
+                    System.out.println("#########################################################################Response: " + response);
+                } catch (Exception e) {
+                    throw new RestQueryEngineException(e.getMessage());
+
+                }
             }
 
             String rawResponse = response.getBody();

@@ -10,18 +10,15 @@ import android.widget.TextView;
 import com.volunteeride.dto.Ride;
 import com.volunteeride.volunteeride.R;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.util.List;
+
+import static com.volunteeride.common.VolunteeRideConstantsUtil.dateTimeFormatter;
 
 
 /**
  * Created by ayazlakdawala on 12/17/15.
  */
 public class RideAdapter extends ArrayAdapter<Ride> {
-
-    DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 
     private final Activity context;
     private final List<Ride> rides;
@@ -47,9 +44,9 @@ public class RideAdapter extends ArrayAdapter<Ride> {
             rowView = inflater.inflate(R.layout.ride_item, null);
             // configure view holder
             ViewHolder viewHolder = new ViewHolder();
-            viewHolder.status = (TextView) rowView.findViewById(R.id.textStatus);
-            viewHolder.pickUpTime = (TextView) rowView.findViewById(R.id.textPckUpTime);
-            viewHolder.pickUpLocation = (TextView) rowView.findViewById(R.id.textPckUpLoc);
+            viewHolder.status = (TextView) rowView.findViewById(R.id.textListStatus);
+            viewHolder.pickUpTime = (TextView) rowView.findViewById(R.id.textListPckUpTime);
+            viewHolder.pickUpLocation = (TextView) rowView.findViewById(R.id.textListPckUpLoc);
             rowView.setTag(viewHolder);
         }
 
@@ -57,12 +54,11 @@ public class RideAdapter extends ArrayAdapter<Ride> {
         ViewHolder holder = (ViewHolder) rowView.getTag();
         Ride ride = rides.get(position);
         holder.status.setText(ride.getStatus());
-        holder.pickUpTime.setText(fmt.print(ride.getPickupTime()));
+        holder.pickUpTime.setText(dateTimeFormatter.print(ride.getPickupTime()));
         holder.pickUpLocation.setText(ride.getPickupLoc().getLocationName());
 
         return rowView;
     }
-
 
 
 }
