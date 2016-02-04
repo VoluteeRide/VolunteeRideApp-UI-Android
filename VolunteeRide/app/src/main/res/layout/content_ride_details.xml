@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -17,70 +17,61 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Status: "
-        android:id="@+id/textLblStatus"
-        android:textColor="#010101"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/lblRideDetails"
-        android:layout_alignLeft="@+id/textLblPckUpLoc"
-        android:layout_alignStart="@+id/textLblPckUpLoc" />
+        android:id="@+id/lblStatus"
+        android:textColor="#000000"
+        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/textPckUpTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Pick Up Time: "
-        android:id="@+id/textLblPckUpTime"
-        android:textColor="#010101"
-        android:layout_alignTop="@+id/textLblStatus"
-        android:layout_alignRight="@+id/lblRideDetails"
-        android:layout_alignEnd="@+id/lblRideDetails" />
+        android:id="@+id/lblPckUpTime"
+        android:textColor="#000000"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/lblRideDetails"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Pick Up Location: "
-        android:id="@+id/textLblPckUpLoc"
-        android:textColor="#010101"
-        android:layout_below="@+id/textLblPckUpTime"
-        android:layout_marginTop="19dp"
-        android:layout_alignLeft="@+id/bttnCnclRide"
-        android:layout_alignStart="@+id/bttnCnclRide" />
+        android:id="@+id/lblPckUpLoc"
+        android:textColor="#000000"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/lblTotalNofOfRiders"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/textPckUpTime"
-        android:layout_alignTop="@+id/textLblPckUpTime"
-        android:layout_toRightOf="@+id/textLblPckUpTime"
-        android:layout_alignParentLeft="false"
-        android:layout_alignRight="@+id/textPckUpStreetAdd"
-        android:layout_alignEnd="@+id/textPckUpStreetAdd" />
+        android:layout_toRightOf="@+id/lblPckUpTime"
+        android:layout_alignBottom="@+id/lblPckUpTime"
+        android:layout_alignRight="@+id/textStatus"
+        android:layout_alignEnd="@+id/textStatus"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/textPckUpLoc"
-        android:textColor="#010101"
-        android:gravity="right"
-        android:textSize="16sp"
-        android:layout_alignTop="@+id/textLblPckUpLoc"
-        android:layout_toRightOf="@+id/textLblPckUpLoc"
-        android:layout_toEndOf="@+id/textLblPckUpLoc" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" Cancel Ride"
-        android:id="@+id/bttnCnclRide"
-        android:visibility="invisible"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_alignLeft="@+id/bttnAcptRide"
-        android:layout_alignStart="@+id/bttnAcptRide"
-        android:layout_marginTop="49dp" />
+        android:textColor="#5a2222"
+        android:layout_alignTop="@+id/lblPckUpLoc"
+        android:layout_toRightOf="@+id/lblPckUpLoc"
+        android:layout_toEndOf="@+id/lblPckUpLoc"
+        android:layout_above="@+id/textPckUpStreetAdd"
+        android:textStyle="bold" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -88,7 +79,7 @@
         android:layout_height="wrap_content"
         android:text="Accept Ride"
         android:id="@+id/bttnAcptRide"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_alignTop="@+id/bttnAcknwldgeRide"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -99,56 +90,10 @@
         android:layout_height="wrap_content"
         android:text="Acknowledge Ride"
         android:id="@+id/bttnAcknwldgeRide"
-        android:visibility="invisible"
-        android:layout_below="@+id/bttnCnclRide"
-        android:layout_alignLeft="@+id/bttnCnclRide"
-        android:layout_alignStart="@+id/bttnCnclRide" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="City :"
-        android:id="@+id/lblPckUpCity"
-        android:textColor="#010101"
-        android:layout_below="@+id/lblPckUpStreetAdd"
-        android:layout_alignLeft="@+id/lblPckUpStreetAdd"
-        android:layout_alignStart="@+id/lblPckUpStreetAdd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="State :"
-        android:id="@+id/lblPckUpState"
-        android:textColor="#010101"
-        android:layout_below="@+id/lblPckUpZipCode"
-        android:layout_alignLeft="@+id/lblPckUpCity"
-        android:layout_alignStart="@+id/lblPckUpCity" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="ZipCode :"
-        android:id="@+id/lblPckUpZipCode"
-        android:textColor="#010101"
-        android:layout_alignBottom="@+id/textPckUpCity"
-        android:layout_toRightOf="@+id/bttnAcknwldgeRide"
-        android:layout_toEndOf="@+id/bttnAcknwldgeRide"
-        android:layout_marginLeft="45dp"
-        android:layout_marginStart="45dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Street Address :"
-        android:id="@+id/lblPckUpStreetAdd"
-        android:textColor="#010101"
-        android:layout_below="@+id/textLblPckUpLoc"
-        android:layout_alignLeft="@+id/textLblPckUpLoc"
-        android:layout_alignStart="@+id/textLblPckUpLoc" />
+        android:visibility="visible"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -157,44 +102,11 @@
         android:id="@+id/textPckUpStreetAdd"
         android:layout_alignRight="@+id/textPckUpLoc"
         android:layout_alignEnd="@+id/textPckUpLoc"
-        android:layout_toEndOf="@+id/lblPckUpStreetAdd"
-        android:layout_below="@+id/textLblPckUpLoc"
-        android:layout_toRightOf="@+id/lblPckUpStreetAdd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textPckUpState"
-        android:layout_alignRight="@+id/textPckUpStreetAdd"
-        android:layout_alignEnd="@+id/textPckUpStreetAdd"
-        android:layout_alignBottom="@+id/lblPckUpState"
-        android:layout_below="@+id/lblPckUpZipCode"
-        android:layout_toRightOf="@+id/lblPckUpState"
-        android:layout_toEndOf="@+id/lblPckUpState" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textPckUpCity"
-        android:layout_alignBottom="@+id/lblPckUpCity"
-        android:layout_toRightOf="@+id/lblPckUpState"
-        android:layout_alignRight="@+id/textLblPckUpLoc"
-        android:layout_alignEnd="@+id/textLblPckUpLoc"
-        android:layout_below="@+id/lblPckUpStreetAdd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textPckUpZipCode"
-        android:layout_above="@+id/textPckUpState"
-        android:layout_alignRight="@+id/textPckUpState"
-        android:layout_alignEnd="@+id/textPckUpState"
-        android:layout_alignTop="@+id/textPckUpCity"
-        android:layout_toEndOf="@+id/lblPckUpZipCode"
-        android:layout_toRightOf="@+id/lblPckUpZipCode" />
+        android:layout_below="@+id/lblPckUpLoc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -202,109 +114,22 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Drop off Location: "
         android:id="@+id/lblDropOffLoc"
-        android:textColor="#010101"
-        android:layout_alignTop="@+id/textDropOffLoc"
-        android:layout_alignLeft="@+id/lblPckUpState"
-        android:layout_alignStart="@+id/lblPckUpState" />
+        android:textColor="#000000"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/textPckUpStreetAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textDropOffLoc"
-        android:textColor="#010101"
-        android:gravity="right"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/textPckUpState"
-        android:layout_toRightOf="@+id/lblDropOffLoc"
-        android:layout_toEndOf="@+id/lblDropOffLoc" />
-
-    <TextView
+    <Button
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Street Address :"
-        android:id="@+id/lblDropOffStreetAdd"
-        android:textColor="#010101"
-        android:layout_below="@+id/lblDropOffLoc"
-        android:layout_alignLeft="@+id/lblDropOffLoc"
-        android:layout_alignStart="@+id/lblDropOffLoc" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textDropOffStreetAdd"
-        android:layout_alignBottom="@+id/lblDropOffStreetAdd"
-        android:layout_toRightOf="@+id/lblPckUpStreetAdd"
-        android:layout_alignRight="@+id/textDropOffLoc"
-        android:layout_alignEnd="@+id/textDropOffLoc" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textDropOffCity"
-        android:layout_below="@+id/textDropOffStreetAdd"
-        android:layout_toRightOf="@+id/lblPckUpCity"
-        android:layout_alignRight="@+id/textPckUpCity"
-        android:layout_alignEnd="@+id/textPckUpCity" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="City :"
-        android:id="@+id/lblDropOffCity"
-        android:textColor="#010101"
-        android:layout_alignTop="@+id/textDropOffCity"
-        android:layout_alignLeft="@+id/lblDropOffStreetAdd"
-        android:layout_alignStart="@+id/lblDropOffStreetAdd" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="ZipCode :"
-        android:id="@+id/lblDropOffZipCode"
-        android:textColor="#010101"
-        android:layout_alignTop="@+id/textDropOffZipCode"
-        android:layout_toLeftOf="@+id/textDropOffZipCode"
-        android:layout_toStartOf="@+id/textDropOffZipCode" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textDropOffState"
-        android:layout_below="@+id/lblDropOffZipCode"
-        android:layout_alignRight="@+id/textDropOffStreetAdd"
-        android:layout_alignEnd="@+id/textDropOffStreetAdd"
-        android:layout_toRightOf="@+id/lblPckUpState"
-        android:layout_toEndOf="@+id/lblPckUpState" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="State :"
-        android:id="@+id/lblDropOffState"
-        android:textColor="#010101"
-        android:layout_below="@+id/lblDropOffCity"
-        android:layout_alignLeft="@+id/lblDropOffCity"
-        android:layout_alignStart="@+id/lblDropOffCity" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textDropOffZipCode"
-        android:layout_alignTop="@+id/textDropOffCity"
-        android:layout_alignRight="@+id/textDropOffStreetAdd"
-        android:layout_alignEnd="@+id/textDropOffStreetAdd"
-        android:layout_toRightOf="@+id/lblPckUpZipCode"
-        android:layout_toEndOf="@+id/lblPckUpZipCode" />
+        android:text="Cancel Ride"
+        android:id="@+id/bttnCnclRide"
+        android:layout_alignTop="@+id/bttnAcknwldgeRide"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -312,32 +137,35 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Ride Details"
         android:id="@+id/lblRideDetails"
-        android:layout_alignParentTop="true"
+        android:textColor="#000000"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textColor="#010101" />
+        android:layout_alignParentTop="true"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/textStatus"
-        android:layout_above="@+id/textLblPckUpLoc"
-        android:layout_toRightOf="@+id/textLblStatus"
-        android:layout_alignRight="@+id/lblCenter"
-        android:layout_alignEnd="@+id/lblCenter" />
+        android:layout_alignTop="@+id/lblStatus"
+        android:layout_toRightOf="@+id/lblStatus"
+        android:layout_alignRight="@+id/textCenter"
+        android:layout_alignEnd="@+id/textCenter"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Total No Of Riders :"
+        android:text="Total No Of Riders : "
         android:id="@+id/lblTotalNofOfRiders"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/lblDropOffState"
-        android:layout_alignLeft="@+id/lblDropOffState"
-        android:layout_alignStart="@+id/lblDropOffState"
-        android:textColor="#010101" />
+        android:textColor="#000000"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/lblCenter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -345,54 +173,221 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:id="@+id/textTotNoOfRiders"
         android:layout_alignBottom="@+id/lblTotalNofOfRiders"
-        android:layout_alignRight="@+id/lblRideDetails"
-        android:layout_alignEnd="@+id/lblRideDetails"
         android:layout_toRightOf="@+id/lblTotalNofOfRiders"
-        android:layout_toEndOf="@+id/lblTotalNofOfRiders" />
+        android:layout_alignRight="@+id/bttnAcknwldgeRide"
+        android:layout_alignEnd="@+id/bttnAcknwldgeRide"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Center :"
+        android:text="Center : "
         android:id="@+id/lblCenter"
-        android:textColor="#010101"
-        android:layout_below="@+id/lblTotalNofOfRiders"
-        android:layout_alignLeft="@+id/lblTotalNofOfRiders"
-        android:layout_alignStart="@+id/lblTotalNofOfRiders"
-        android:layout_marginTop="21dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Ride Seekers :"
-        android:id="@+id/lblRideSeekers"
-        android:textColor="#010101"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/lblCenter"
-        android:layout_alignLeft="@+id/lblCenter" />
+        android:textColor="#000000"
+        android:layout_below="@+id/lblPckUpTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lblRideSeekers"
-        android:layout_alignLeft="@+id/lblRideSeekers"
-        android:layout_alignStart="@+id/lblRideSeekers"
-        android:layout_marginTop="11dp"
-        android:layout_toStartOf="@+id/lblRideDetails"
-        android:id="@+id/relativeLayout">
+        android:layout_marginTop="26dp"
+        android:id="@+id/relativeLayout"
+        android:visibility="visible"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Volunteer :"
+            android:text="Volunteer : "
             android:id="@+id/lblVolunteer"
-            android:textColor="#010101"
+            android:textColor="#000000"
             android:layout_alignParentTop="false"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textVolunteerName"
+            android:layout_toRightOf="@+id/lblVolunteer"
+            android:layout_alignRight="@+id/textVolunteerEmail"
+            android:layout_alignEnd="@+id/textVolunteerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/lblVolunteerPhn"
+            android:layout_below="@+id/textVolunteerName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Phone : "
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textVolunteerPhn"
+            android:layout_below="@+id/textVolunteerName"
+            android:layout_toRightOf="@+id/lblVolunteerPhn"
+            android:layout_alignRight="@+id/textVolunteerEmail"
+            android:layout_alignEnd="@+id/textVolunteerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textVolunteerEmail"
+            android:layout_alignBaseline="@+id/lblVolunteerEmail"
+            android:layout_alignBottom="@+id/lblVolunteerEmail"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/lblVolunteerEmail"
+            android:layout_toEndOf="@+id/lblVolunteerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/lblVolunteerEmail"
+            android:text="Email : "
+            android:textColor="#000000"
+            android:layout_below="@+id/lblVolunteerPhn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textCenter"
+        android:layout_alignBottom="@+id/lblCenter"
+        android:layout_toRightOf="@+id/lblCenter"
+        android:layout_alignRight="@+id/textPckUpLoc"
+        android:layout_alignEnd="@+id/textPckUpLoc"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout2"
+        android:layout_below="@+id/textDropOffStreetAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Ride Seeker : "
+            android:id="@+id/lblRideSeeker"
+            android:textColor="#000000"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textRideSeekerName"
+            android:layout_toRightOf="@+id/lblRideSeeker"
+            android:layout_alignRight="@+id/textRideSeekerEmail"
+            android:layout_alignEnd="@+id/textRideSeekerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/lblRideSeekerPhn"
+            android:layout_below="@+id/textRideSeekerName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Phone : "
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textRideSeekerEmail"
+            android:layout_alignTop="@+id/lblRideSeekerEmail"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/lblRideSeekerEmail"
+            android:layout_alignBottom="@+id/lblRideSeekerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textRideSeekerPhn"
+            android:layout_below="@+id/textRideSeekerName"
+            android:layout_toRightOf="@+id/lblRideSeekerPhn"
+            android:layout_alignRight="@+id/textRideSeekerEmail"
+            android:layout_alignEnd="@+id/textRideSeekerEmail"
+            android:textColor="#5a2222"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/lblRideSeekerEmail"
+            android:text="Email : "
+            android:textColor="#000000"
+            android:layout_below="@+id/lblRideSeekerPhn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textDropOffStreetAdd"
+        android:layout_below="@+id/lblDropOffLoc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_alignEnd="@+id/relativeLayout2"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textDropOffLoc"
+        android:layout_alignTop="@+id/lblDropOffLoc"
+        android:layout_toRightOf="@+id/lblDropOffLoc"
+        android:layout_alignRight="@+id/textDropOffStreetAdd"
+        android:layout_alignEnd="@+id/textDropOffStreetAdd"
+        android:textColor="#5a2222"
+        android:textStyle="bold" />
 
 </RelativeLayout>

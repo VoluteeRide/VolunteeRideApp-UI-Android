@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import static com.volunteeride.dto.RideStatusEnum.REQUESTED;
-import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.QueryParamsConstants.RIDE_STATUS;
-import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
-import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.mapper;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.QueryParamsConstants.RIDE_STATUS;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.mapper;
 
 public class UserRideListActivity extends ListActivity {
 
@@ -80,12 +80,16 @@ public class UserRideListActivity extends ListActivity {
                     rides = mapper.
                             readValue(response.getResponse(), new TypeReference<List<Ride>>() {});
                 } catch (IOException e) {
+                    //TODO Ayaz Handle exception
                     e.printStackTrace();
                 }
 
                 setListAdapter(new RideAdapter(UserRideListActivity.this, rides));
+            }else{
+                //TODO Ayaz handle other status codes
             }
         }catch(RestQueryEngineException e){
+            //TODO Ayaz Handle Exception
            // Toast.makeText(v.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 

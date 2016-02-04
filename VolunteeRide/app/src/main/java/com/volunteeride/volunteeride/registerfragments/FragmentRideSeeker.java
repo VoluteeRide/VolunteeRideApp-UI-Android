@@ -20,7 +20,7 @@ import com.volunteeride.dto.VolunteerideUser;
 import com.volunteeride.rest.RestQueryEngine;
 import com.volunteeride.rest.RestQueryEngineException;
 import com.volunteeride.rest.RestQueryResult;
-import com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil;
+import com.volunteeride.common.VolunteeRideConstantsUtil;
 import com.volunteeride.rest.volunteeride.VolunteeRideRestQueryProvider;
 import com.volunteeride.volunteeride.R;
 

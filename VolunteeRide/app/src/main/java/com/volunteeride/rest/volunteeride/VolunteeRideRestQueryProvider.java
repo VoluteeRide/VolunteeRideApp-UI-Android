@@ -1,7 +1,9 @@
 package com.volunteeride.rest.volunteeride;
 
+import com.volunteeride.common.VolunteeRideConstantsUtil;
 import com.volunteeride.rest.IRestQueryProvider;
 import com.volunteeride.rest.RestQuery;
+import com.volunteeride.volunteeride.utility.PropertyReaderUtility;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.util.UriComponents;
@@ -10,9 +12,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.volunteeride.rest.volunteeride.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
-import static com.volunteeride.volunteeride.utility.PropertyReaderUtility.baseURL;
-import static com.volunteeride.volunteeride.utility.PropertyReaderUtility.searchRidesURL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.BASE_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.RETRIEVE_CENTER_DETAILS_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.RETRIEVE_USER_DETAILS_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlConstants.SEARCH_RIDES_URL;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_CENTER_DETAILS_URL_NAME;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.RETRIEVE_USER_DETAILS_URL_NAME;
+import static com.volunteeride.common.VolunteeRideConstantsUtil.UrlNameConstants.SEARCH_RIDES_URL_NAME;
 
 /**
  * Created by mthosani on 12/19/15.
@@ -20,7 +26,10 @@ import static com.volunteeride.volunteeride.utility.PropertyReaderUtility.search
 public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
 
     private static final Map<String,RestQuery> queriesByNameMap = new HashMap<String,RestQuery>();
-    static{
+    private static final String baseURL;
+    static {
+
+        baseURL = PropertyReaderUtility.getValue(BASE_URL);
 
         queriesByNameMap.put(VolunteeRideConstantsUtil.GET_CENTERS,
                 new RestQuery(RestQuery.Method.GET, baseURL + VolunteeRideConstantsUtil.CENTERS_RESOURCE));
@@ -30,7 +39,11 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
                 new RestQuery(RestQuery.Method.POST, baseURL + VolunteeRideConstantsUtil.REGISTER_USER_RESOURCE));
 
         queriesByNameMap.put(SEARCH_RIDES_URL_NAME,
-                new RestQuery(RestQuery.Method.GET, searchRidesURL));
+                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(SEARCH_RIDES_URL)));
+        queriesByNameMap.put(RETRIEVE_CENTER_DETAILS_URL_NAME,
+                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_CENTER_DETAILS_URL)));
+        queriesByNameMap.put(RETRIEVE_USER_DETAILS_URL_NAME,
+                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_USER_DETAILS_URL)));
 
     }
 

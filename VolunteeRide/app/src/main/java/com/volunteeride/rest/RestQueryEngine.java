@@ -118,10 +118,10 @@ public class RestQueryEngine {
             RestQuery pQuery = params[0];
             ResponseEntity<String> response = null;
             HttpEntity<?> requestEntity;
-            if(pQuery.getParam() == null){
+            if(pQuery.getmBody() == null){
                 requestEntity = new HttpEntity<Object>(pQuery.getHeaders());
             }else{
-                requestEntity = new HttpEntity<Object>(pQuery.getParam(), pQuery.getHeaders());
+                requestEntity = new HttpEntity<>(pQuery.getmBody(), pQuery.getHeaders());
             }
 
             RestTemplate restTemplate = new RestTemplate(true);
