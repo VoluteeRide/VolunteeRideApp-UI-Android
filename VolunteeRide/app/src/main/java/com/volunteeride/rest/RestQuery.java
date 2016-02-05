@@ -1,17 +1,14 @@
 package com.volunteeride.rest;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 
 /**
  * Created by mthosani on 12/12/15.
  */
 public class RestQuery {
 
-    public enum Method {
-        GET, POST, PUT, DELETE
-    }
-
-    private Method mMethod;
+    private HttpMethod mMethod;
 
     private String mURL;
 
@@ -21,12 +18,12 @@ public class RestQuery {
 
     private Object mBody;
 
-    public RestQuery(Method pMethod, String pURL){
+    public RestQuery(HttpMethod pMethod, String pURL){
         this.mMethod = pMethod;
         this.mURL = pURL;
     }
 
-    public RestQuery(Method mMethod, String mURL, HttpHeaders mHeaders) {
+    public RestQuery(HttpMethod mMethod, String mURL, HttpHeaders mHeaders) {
         this.mMethod = mMethod;
         this.mURL = mURL;
         this.mHeaders = mHeaders;
@@ -56,11 +53,11 @@ public class RestQuery {
         this.mURL = mURL;
     }
 
-    public Method getMethod() {
+    public HttpMethod getMethod() {
         return mMethod;
     }
 
-    public void setMethod(Method mMethod) {
+    public void setMethod(HttpMethod mMethod) {
         this.mMethod = mMethod;
     }
 

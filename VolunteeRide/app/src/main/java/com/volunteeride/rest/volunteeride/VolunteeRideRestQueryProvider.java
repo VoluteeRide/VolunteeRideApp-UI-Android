@@ -6,6 +6,7 @@ import com.volunteeride.rest.RestQuery;
 import com.volunteeride.volunteeride.utility.PropertyReaderUtility;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
@@ -37,20 +38,20 @@ public class VolunteeRideRestQueryProvider implements IRestQueryProvider{
         baseURL = PropertyReaderUtility.getValue(BASE_URL);
 
         queriesByNameMap.put(VolunteeRideConstantsUtil.GET_CENTERS,
-                new RestQuery(RestQuery.Method.GET, baseURL + VolunteeRideConstantsUtil.CENTERS_RESOURCE));
+                new RestQuery(HttpMethod.GET, baseURL + VolunteeRideConstantsUtil.CENTERS_RESOURCE));
         queriesByNameMap.put(VolunteeRideConstantsUtil.LOGIN,
-                new RestQuery(RestQuery.Method.POST, baseURL + VolunteeRideConstantsUtil.LOGIN_RESOURCE));
+                new RestQuery(HttpMethod.POST, baseURL + VolunteeRideConstantsUtil.LOGIN_RESOURCE));
         queriesByNameMap.put(VolunteeRideConstantsUtil.REGISTER_USER,
-                new RestQuery(RestQuery.Method.POST, baseURL + VolunteeRideConstantsUtil.REGISTER_USER_RESOURCE));
+                new RestQuery(HttpMethod.POST, baseURL + VolunteeRideConstantsUtil.REGISTER_USER_RESOURCE));
 
         queriesByNameMap.put(SEARCH_RIDES_URL_NAME,
-                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(SEARCH_RIDES_URL)));
+                new RestQuery(HttpMethod.GET, PropertyReaderUtility.getValue(SEARCH_RIDES_URL)));
         queriesByNameMap.put(RETRIEVE_CENTER_DETAILS_URL_NAME,
-                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_CENTER_DETAILS_URL)));
+                new RestQuery(HttpMethod.GET, PropertyReaderUtility.getValue(RETRIEVE_CENTER_DETAILS_URL)));
         queriesByNameMap.put(RETRIEVE_USER_DETAILS_URL_NAME,
-                new RestQuery(RestQuery.Method.GET, PropertyReaderUtility.getValue(RETRIEVE_USER_DETAILS_URL)));
+                new RestQuery(HttpMethod.GET, PropertyReaderUtility.getValue(RETRIEVE_USER_DETAILS_URL)));
         queriesByNameMap.put(EXECUTE_RIDE_OPERATION_URL_NAME,
-                new RestQuery(RestQuery.Method.PUT, PropertyReaderUtility.getValue(EXECUTE_RIDE_OPERATION_URL)));
+                new RestQuery(HttpMethod.PUT, PropertyReaderUtility.getValue(EXECUTE_RIDE_OPERATION_URL)));
 
     }
 
